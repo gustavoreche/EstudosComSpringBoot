@@ -7,6 +7,7 @@ import org.springframework.hateoas.client.LinkDiscoverer;
 import org.springframework.hateoas.client.LinkDiscoverers;
 import org.springframework.hateoas.mediatype.collectionjson.CollectionJsonLinkDiscoverer;
 import org.springframework.plugin.core.SimplePluginRegistry;
+import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.service.ApiInfo;
 import springfox.documentation.service.Contact;
@@ -41,14 +42,19 @@ public class SwaggerConfig {
   }
 
   private ApiInfo metaInfo() {
-    ApiInfo apiInfo = new ApiInfo(
-        "Exemplo com Spring Boot", "Projeto de teste com Spring Boot", "1.0",
-        "",
-        new Contact("Projeto de teste com Spring Boot",
-            "https://github.com/gustavoreche/EstudosComSpringBoot", ""),
-        "", "", new ArrayList<VendorExtension>()
-    );
-    return apiInfo;
+    return new ApiInfoBuilder().title("Exemplo com Spring Boot")
+        .description("Projeto de teste com Spring Boot").version("1.0")
+        .build();
   }
+
+//  private ApiInfo metaInfo() {
+//    ApiInfo
+//    ApiInfo apiInfo = new ApiInfo("Exemplo com Spring Boot", "Projeto de teste com Spring Boot", "1.0",
+//        "", new Contact("Projeto de teste com Spring Boot",
+//            "https://github.com/gustavoreche/EstudosComSpringBoot", ""),
+//        "", "", new ArrayList<VendorExtension>()
+//    );
+//    return apiInfo;
+//  }
 
 }
