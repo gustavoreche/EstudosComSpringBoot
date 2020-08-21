@@ -30,24 +30,24 @@ public class SwaggerConfig {
   }
 
 
-  @Bean
-  public Docket productApi() {
-    return new Docket(DocumentationType.SWAGGER_2)
-        .select()
-        .apis(RequestHandlerSelectors.basePackage("com.example.springbootteste"))
-        .build()
-        .apiInfo(metaInfo());
-  }
-
-  private ApiInfo metaInfo() {
-    ApiInfo apiInfo = new ApiInfo(
-        "Exemplo com Spring Boot", "Projeto de teste com Spring Boot", "1.0",
-        "",
-        new Contact("Projeto de teste com Spring Boot",
-            "https://github.com/gustavoreche/EstudosComSpringBoot", ""),
-        "", "", new ArrayList<VendorExtension>()
-    );
-    return apiInfo;
-  }
+//  @Bean
+//  public Docket productApi() {
+//    return new Docket(DocumentationType.SWAGGER_2)
+//        .select()
+//        .apis(RequestHandlerSelectors.basePackage("com.example.springbootteste"))
+//        .build()
+//        .apiInfo(metaInfo());
+//  }
+//
+//  private ApiInfo metaInfo() {
+//    ApiInfo apiInfo = new ApiInfo(
+//        "Exemplo com Spring Boot", "Projeto de teste com Spring Boot", "1.0",
+//        "",
+//        new Contact("Projeto de teste com Spring Boot",
+//            "https://github.com/gustavoreche/EstudosComSpringBoot", ""),
+//        "", "", new ArrayList<VendorExtension>()
+//    );
+//    return apiInfo;
+//  }
   
 }
