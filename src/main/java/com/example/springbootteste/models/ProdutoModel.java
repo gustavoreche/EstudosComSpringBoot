@@ -22,29 +22,30 @@ public class ProdutoModel extends RepresentationModel<ProdutoModel> implements S
 	private long idProduto;
 	private String nome;
 	private BigDecimal valor;
+	
+	public ProdutoModel() {
+
+	}
+	
+	public ProdutoModel(ProdutoModelDTO produtoDTO) {
+		atualizaProduto(produtoDTO);
+	}
 
 	public long getIdProduto() {
 		return idProduto;
-	}
-
-	public void setIdProduto(long idProduto) {
-		this.idProduto = idProduto;
 	}
 
 	public String getNome() {
 		return nome;
 	}
 
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
-
 	public BigDecimal getValor() {
 		return valor;
 	}
-
-	public void setValor(BigDecimal valor) {
-		this.valor = valor;
+	
+	public void atualizaProduto(ProdutoModelDTO produtoDTO) {
+		this.nome = produtoDTO.getNome();
+		this.valor = produtoDTO.getValor();
 	}
-
+	
 }
