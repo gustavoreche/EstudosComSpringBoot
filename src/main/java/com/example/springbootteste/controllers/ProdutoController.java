@@ -38,10 +38,14 @@ public class ProdutoController {
 		if(listaDeProdutosDTO != null && listaDeProdutosDTO.isEmpty()) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
+		criaLinks(listaDeProdutosDTO);
+		return new ResponseEntity<List<ProdutoModelDTO>>(listaDeProdutosDTO, HttpStatus.OK);
+	}
+
+	private void criaLinks(List<ProdutoModelDTO> listaDeProdutosDTO) {
 		for (ProdutoModelDTO produtoDTO : listaDeProdutosDTO) {
 			adicionaLink(produtoDTO);
 		}
-		return new ResponseEntity<List<ProdutoModelDTO>>(listaDeProdutosDTO, HttpStatus.OK);
 	}
 	
 	private void adicionaLink(ProdutoModelDTO produtoDTO) {
