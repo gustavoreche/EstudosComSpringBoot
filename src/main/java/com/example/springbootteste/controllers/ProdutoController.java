@@ -66,12 +66,13 @@ public class ProdutoController {
 	
 	@GetMapping("/{id}")
 	public ResponseEntity<ProdutoModelDTO> pegaUmProduto(@PathVariable(value = "id") long id){
-		Optional<ProdutoModelDTO> produto = ProdutoModelDTO.converte(produtoRepository.findById(id));
+		Optional<ProdutoModel> produto = produtoRepository.findById(id);
 		if(!produto.isPresent()) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
-		adicionaLink(produto.get(), true);
-		return new ResponseEntity<ProdutoModelDTO>(produto.get(), HttpStatus.OK);
+		Optional<ProdutoModelDTO> produtoDTO = ProdutoModelDTO.converte(produto);
+		adicionaLink(produtoDTO.get(), true);
+		return new ResponseEntity<ProdutoModelDTO>(produtoDTO.get(), HttpStatus.OK);
 	}
 	
 	@PostMapping()
