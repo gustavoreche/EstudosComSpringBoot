@@ -1,9 +1,13 @@
 package com.example.springbootteste.config.swagger;
+
 import java.util.Arrays;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.hateoas.client.LinkDiscoverers;
 import org.springframework.hateoas.mediatype.collectionjson.CollectionJsonLinkDiscoverer;
 import org.springframework.plugin.core.SimplePluginRegistry;
@@ -16,30 +20,29 @@ import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
-
 @Configuration
 @EnableSwagger2
 public class SwaggerConfig {
 
-  @Primary
-  @Bean  
-  public LinkDiscoverers discoverers(){    
-    return new LinkDiscoverers(SimplePluginRegistry.create(Arrays.asList(new CollectionJsonLinkDiscoverer())));
-  }
+	@Autowired
+	MessageSource internacionalizacaoDeMensagem;
 
-  @Bean
-  public Docket productApi() {
-    return new Docket(DocumentationType.SWAGGER_2)
-        .select()
-        .apis(RequestHandlerSelectors.basePackage("com.example.springbootteste"))
-        .paths(PathSelectors.any())
-        .build()
-        .apiInfo(metaInfo());
-  }
+	@Primary
+	@Bean
+	public LinkDiscoverers discoverers() {
+		return new LinkDiscoverers(SimplePluginRegistry.create(Arrays.asList(new CollectionJsonLinkDiscoverer())));
+	}
 
-  private ApiInfo metaInfo() {
-    return new ApiInfoBuilder().title("Exemplo com Spring Boot")
-        .description("Projeto de teste com Spring Boot").version("1.0")
+	@Bean
+	public Docket productApi() {
+		return new Docket(DocumentationType.SWAGGER_2).select()
+				.apis(RequestHandlerSelectors.basePackage("com.example.springbootteste")).paths(PathSelectors.any())
+				.build().apiInfo(metaInfo());
+	}
+
+	private ApiInfo metaInfo() {
+    return new ApiInfoBuilder().title(internacionalizacaoDeMensagem.getMessage("titulo.swagger", null, LocaleContextHolder.getLocale()))
+        .description(internacionalizacaoDeMensagem.getMessage("descricao.swagger", null, LocaleContextHolder.getLocale())).version("1.0")
         .build();
   }
 
