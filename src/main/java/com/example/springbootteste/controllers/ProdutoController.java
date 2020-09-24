@@ -1,5 +1,6 @@
 package com.example.springbootteste.controllers;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -36,24 +37,35 @@ public class ProdutoController {
 	private static final String LISTA_PRODUTOS = "Lista de Produtos";
 	
 	@GetMapping()
-	public ResponseEntity<List<ProdutoModelDTO>> pegaTodosProdutos(){
-		List<ProdutoModelDTO> listaDeProdutosDTO = ProdutoModelDTO.converte(produtoRepository.findAll());
+	public ResponseEntity<List<ProdutoModelDTO>> pegaTodosProdutos(@RequestParam(required = false) Integer pagina, 
+			@RequestParam(required = false) Integer quantidade){
+		List<ProdutoModelDTO> listaDeProdutosDTO = new ArrayList<ProdutoModelDTO>();
+		listaDeProdutosDTO = pegaListaDeProdutos(pagina, quantidade);
 		if(listaDeProdutosDTO != null && listaDeProdutosDTO.isEmpty()) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 		criaLinks(listaDeProdutosDTO);
 		return new ResponseEntity<List<ProdutoModelDTO>>(listaDeProdutosDTO, HttpStatus.OK);
 	}
+
+	private List<ProdutoModelDTO> pegaListaDeProdutos(Integer pagina, Integer quantidade) {
+		if(temPaginacao(pagina, quantidade)) {
+			return listaDeProdutosComPaginacao(pagina, quantidade);			
+		} 
+		return listaDeProdutos();
+	}
 	
-	@GetMapping("/limitados")
-	public ResponseEntity<List<ProdutoModelDTO>> pegaTodosProdutosComPaginacao(@RequestParam int pagina, @RequestParam int quantidade){
+	private boolean temPaginacao(Integer pagina, Integer quantidade) {
+		return (pagina != null && pagina >= 0) && (quantidade != null && quantidade > 0);
+	}
+	
+	private List<ProdutoModelDTO> listaDeProdutosComPaginacao(int pagina, int quantidade) {
 		Pageable paginacao = PageRequest.of(pagina, quantidade);
-		List<ProdutoModelDTO> listaDeProdutosDTO = ProdutoModelDTO.converte(produtoRepository.findAll(paginacao));
-		if(listaDeProdutosDTO != null && listaDeProdutosDTO.isEmpty()) {
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		}
-		criaLinks(listaDeProdutosDTO);
-		return new ResponseEntity<List<ProdutoModelDTO>>(listaDeProdutosDTO, HttpStatus.OK);
+		return ProdutoModelDTO.converte(produtoRepository.findAll(paginacao));
+	}
+
+	private List<ProdutoModelDTO> listaDeProdutos() {
+		return ProdutoModelDTO.converte(produtoRepository.findAll());
 	}
 
 	private void criaLinks(List<ProdutoModelDTO> listaDeProdutosDTO) {
@@ -69,7 +81,7 @@ public class ProdutoController {
 	private void adicionaLink(ProdutoModelDTO produtoDTO, boolean linkDeTodosOsProdutos) {
 		if(linkDeTodosOsProdutos) {
 			produtoDTO.add(WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder
-					.methodOn(ProdutoController.class).pegaTodosProdutos())
+					.methodOn(ProdutoController.class).pegaTodosProdutos(0, 0))
 					.withRel(LISTA_PRODUTOS));			
 		} else {
 			produtoDTO.add(WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder
