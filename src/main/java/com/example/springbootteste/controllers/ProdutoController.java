@@ -7,6 +7,8 @@ import javax.transaction.Transactional;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,6 +19,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.springbootteste.models.ProdutoModel;
@@ -35,6 +38,17 @@ public class ProdutoController {
 	@GetMapping()
 	public ResponseEntity<List<ProdutoModelDTO>> pegaTodosProdutos(){
 		List<ProdutoModelDTO> listaDeProdutosDTO = ProdutoModelDTO.converte(produtoRepository.findAll());
+		if(listaDeProdutosDTO != null && listaDeProdutosDTO.isEmpty()) {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+		criaLinks(listaDeProdutosDTO);
+		return new ResponseEntity<List<ProdutoModelDTO>>(listaDeProdutosDTO, HttpStatus.OK);
+	}
+	
+	@GetMapping("/limitados")
+	public ResponseEntity<List<ProdutoModelDTO>> pegaTodosProdutosComPaginacao(@RequestParam int pagina, @RequestParam int quantidade){
+		Pageable paginacao = PageRequest.of(pagina, quantidade);
+		List<ProdutoModelDTO> listaDeProdutosDTO = ProdutoModelDTO.converte(produtoRepository.findAll(paginacao));
 		if(listaDeProdutosDTO != null && listaDeProdutosDTO.isEmpty()) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}

@@ -11,6 +11,7 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import org.springframework.data.domain.Page;
 import org.springframework.hateoas.RepresentationModel;
 
 public class ProdutoModelDTO extends RepresentationModel<ProdutoModelDTO> implements Serializable {
@@ -50,7 +51,7 @@ public class ProdutoModelDTO extends RepresentationModel<ProdutoModelDTO> implem
 		return valor;
 	}
 
-	public static List<ProdutoModelDTO> converte(List<ProdutoModel> listaDeProdutos) {
+	public static List<ProdutoModelDTO> converte(Page<ProdutoModel> listaDeProdutos) {
 		List<ProdutoModelDTO> listaDeRetorno = new ArrayList<ProdutoModelDTO>();
 		listaDeProdutos.forEach(produto -> {
 			listaDeRetorno.add(converte(produto));
@@ -73,6 +74,14 @@ public class ProdutoModelDTO extends RepresentationModel<ProdutoModelDTO> implem
 	public void atualizaProduto(ProdutoModel produtoModel) {
 		produtoModel.atualizaProduto(this);
 				
+	}
+
+	public static List<ProdutoModelDTO> converte(List<ProdutoModel> listaDeProdutos) {
+		List<ProdutoModelDTO> listaDeRetorno = new ArrayList<ProdutoModelDTO>();
+		listaDeProdutos.forEach(produto -> {
+			listaDeRetorno.add(converte(produto));
+		});
+		return listaDeRetorno;
 	}
 
 }
