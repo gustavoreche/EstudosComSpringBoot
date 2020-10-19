@@ -8,6 +8,7 @@ import javax.transaction.Transactional;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
@@ -91,6 +92,7 @@ public class ProdutoController {
 	}
 	
 	@GetMapping("/{id}")
+	@Cacheable(value = "listaPorId")
 	public ResponseEntity<ProdutoModelDTO> pegaUmProduto(@PathVariable(value = "id") long id){
 		Optional<ProdutoModel> produto = produtoRepository.findById(id);
 		if(!produto.isPresent()) {
@@ -102,7 +104,7 @@ public class ProdutoController {
 	}
 	
 	@PostMapping()
-	public ResponseEntity<ProdutoModelDTO> salvaProduto(@RequestBody @Valid ProdutoModelDTO produto){
+	public ResponseEntity<ProdutoModelDTO> salvaProduto(@RequestBody @Valid ProdutoModelInsereDTO produto){
 		ProdutoModelDTO produtoDTO = ProdutoModelDTO.converte(produtoRepository.save(produto.converteParaOModel()));
 		adicionaLink(produtoDTO);
 		return new ResponseEntity<ProdutoModelDTO>(produtoDTO, HttpStatus.CREATED);

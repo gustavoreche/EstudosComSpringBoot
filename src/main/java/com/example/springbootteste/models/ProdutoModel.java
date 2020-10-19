@@ -27,8 +27,9 @@ public class ProdutoModel implements Serializable {
 
 	}
 
-	protected ProdutoModel(ProdutoModelDTO produtoDTO) {
-		atualizaProduto(produtoDTO);
+	public ProdutoModel(String nome, BigDecimal valor) {
+		this.nome = nome;
+		this.valor = valor;
 	}
 
 	public long getIdProduto() {

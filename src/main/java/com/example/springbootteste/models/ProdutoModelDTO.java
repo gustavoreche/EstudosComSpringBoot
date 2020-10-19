@@ -67,10 +67,6 @@ public class ProdutoModelDTO extends RepresentationModel<ProdutoModelDTO> implem
 		return new ProdutoModelDTO(produto);
 	}
 
-	public ProdutoModel converteParaOModel() {
-		return new ProdutoModel(this);
-	}
-
 	public void atualizaProduto(ProdutoModel produtoModel) {
 		produtoModel.atualizaProduto(this);
 				
