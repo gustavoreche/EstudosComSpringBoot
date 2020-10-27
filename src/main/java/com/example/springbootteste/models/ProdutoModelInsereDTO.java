@@ -1,4 +1,4 @@
-package com.example.springbootteste.controllers;
+package com.example.springbootteste.models;
 
 import java.math.BigDecimal;
 
@@ -6,8 +6,6 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-
-import com.example.springbootteste.models.ProdutoModel;
 
 public class ProdutoModelInsereDTO {
 	
@@ -26,6 +24,10 @@ public class ProdutoModelInsereDTO {
 	
 	public ProdutoModel converteParaOModel() {
 		return new ProdutoModel(this.nome, this.valor);
+	}
+	
+	public void atualizaProduto(ProdutoModel produtoModel) {
+		produtoModel.atualizaProduto(this);
 	}
 	
 	public String getNome() {

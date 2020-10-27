@@ -8,6 +8,7 @@ import javax.transaction.Transactional;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -26,6 +27,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.springbootteste.models.ProdutoModel;
 import com.example.springbootteste.models.ProdutoModelDTO;
+import com.example.springbootteste.models.ProdutoModelInsereDTO;
 import com.example.springbootteste.repositories.ProdutoRepository;
 
 @RestController
@@ -104,6 +106,7 @@ public class ProdutoController {
 	}
 	
 	@PostMapping()
+	@CacheEvict(value = "listaPorId", allEntries = true)
 	public ResponseEntity<ProdutoModelDTO> salvaProduto(@RequestBody @Valid ProdutoModelInsereDTO produto){
 		ProdutoModelDTO produtoDTO = ProdutoModelDTO.converte(produtoRepository.save(produto.converteParaOModel()));
 		adicionaLink(produtoDTO);
@@ -111,6 +114,7 @@ public class ProdutoController {
 	}
 	
 	@DeleteMapping("/{id}")
+	@CacheEvict(value = "listaPorId", allEntries = true)
 	public ResponseEntity<?> deletaProduto(@PathVariable(value = "id") long id){
 		Optional<ProdutoModel> produto = produtoRepository.findById(id);
 		if(!produto.isPresent()) {
@@ -122,8 +126,9 @@ public class ProdutoController {
 	
 	@PutMapping("/{id}")
 	@Transactional
+	@CacheEvict(value = "listaPorId", allEntries = true)
 	public ResponseEntity<ProdutoModelDTO> atualizaProduto(@PathVariable(value = "id") long id,
-			@RequestBody @Valid ProdutoModelDTO produtoDTO){
+			@RequestBody @Valid ProdutoModelInsereDTO produtoDTO){
 		Optional<ProdutoModel> produtoExistente = produtoRepository.findById(id);
 		if(!produtoExistente.isPresent()) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);

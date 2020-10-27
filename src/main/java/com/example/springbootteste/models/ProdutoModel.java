@@ -48,7 +48,7 @@ public class ProdutoModel implements Serializable {
 		return dataCriacao;
 	}
 
-	protected void atualizaProduto(ProdutoModelDTO produtoDTO) {
+	protected void atualizaProduto(ProdutoModelInsereDTO produtoDTO) {
 		this.nome = produtoDTO.getNome();
 		this.valor = produtoDTO.getValor();
 	}

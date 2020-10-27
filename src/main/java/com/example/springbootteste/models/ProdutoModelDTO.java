@@ -67,11 +67,6 @@ public class ProdutoModelDTO extends RepresentationModel<ProdutoModelDTO> implem
 		return new ProdutoModelDTO(produto);
 	}
 
-	public void atualizaProduto(ProdutoModel produtoModel) {
-		produtoModel.atualizaProduto(this);
-				
-	}
-
 	public static List<ProdutoModelDTO> converte(List<ProdutoModel> listaDeProdutos) {
 		List<ProdutoModelDTO> listaDeRetorno = new ArrayList<ProdutoModelDTO>();
 		listaDeProdutos.forEach(produto -> {
