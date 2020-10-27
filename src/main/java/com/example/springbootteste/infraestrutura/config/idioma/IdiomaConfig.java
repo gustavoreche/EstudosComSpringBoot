@@ -1,4 +1,4 @@
-package com.example.springbootteste.config.idioma;
+package com.example.springbootteste.infraestrutura.config.idioma;
 
 import java.util.Locale;
 

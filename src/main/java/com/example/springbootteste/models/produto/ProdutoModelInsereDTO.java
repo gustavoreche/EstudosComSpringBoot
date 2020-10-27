@@ -1,4 +1,4 @@
-package com.example.springbootteste.models;
+package com.example.springbootteste.models.produto;
 
 import java.math.BigDecimal;
 

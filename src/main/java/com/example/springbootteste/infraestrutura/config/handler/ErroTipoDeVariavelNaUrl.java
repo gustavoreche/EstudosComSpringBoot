@@ -1,4 +1,4 @@
-package com.example.springbootteste.config.handler;
+package com.example.springbootteste.infraestrutura.config.handler;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;

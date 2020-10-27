@@ -1,9 +1,9 @@
-package com.example.springbootteste.repositories;
+package com.example.springbootteste.aplicacao.repositories;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.example.springbootteste.models.ProdutoModel;
+import com.example.springbootteste.models.produto.ProdutoModel;
 
 @Repository
 public interface ProdutoRepository extends JpaRepository<ProdutoModel, Long>{

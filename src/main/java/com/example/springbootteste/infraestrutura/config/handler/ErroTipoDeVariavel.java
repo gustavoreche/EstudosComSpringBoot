@@ -1,4 +1,4 @@
-package com.example.springbootteste.config.handler;
+package com.example.springbootteste.infraestrutura.config.handler;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

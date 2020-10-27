@@ -1,4 +1,4 @@
-package com.example.springbootteste.config.swagger;
+package com.example.springbootteste.infraestrutura.config.swagger;
 
 import java.util.Arrays;
 

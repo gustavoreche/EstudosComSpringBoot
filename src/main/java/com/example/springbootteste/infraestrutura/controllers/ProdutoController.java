@@ -1,4 +1,4 @@
-package com.example.springbootteste.controllers;
+package com.example.springbootteste.infraestrutura.controllers;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,10 +25,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.springbootteste.models.ProdutoModel;
-import com.example.springbootteste.models.ProdutoModelDTO;
-import com.example.springbootteste.models.ProdutoModelInsereDTO;
-import com.example.springbootteste.repositories.ProdutoRepository;
+import com.example.springbootteste.aplicacao.repositories.ProdutoRepository;
+import com.example.springbootteste.models.produto.ProdutoModel;
+import com.example.springbootteste.models.produto.ProdutoModelDTO;
+import com.example.springbootteste.models.produto.ProdutoModelInsereDTO;
 
 @RestController
 @RequestMapping("/produtos")
