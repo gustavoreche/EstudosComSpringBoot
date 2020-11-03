@@ -1,4 +1,4 @@
-package com.example.springbootteste.infraestrutura.controllers;
+package com.example.springbootteste.infraestrutura.controllers.produto;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,7 +25,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.springbootteste.aplicacao.repositories.ProdutoRepository;
+import com.example.springbootteste.aplicacao.repositories.produto.ProdutoRepository;
 import com.example.springbootteste.models.produto.ProdutoModel;
 import com.example.springbootteste.models.produto.ProdutoModelDTO;
 import com.example.springbootteste.models.produto.ProdutoModelInsereDTO;

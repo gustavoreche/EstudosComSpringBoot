@@ -1,4 +1,4 @@
-package com.example.springbootteste.aplicacao.repositories;
+package com.example.springbootteste.aplicacao.repositories.produto;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
