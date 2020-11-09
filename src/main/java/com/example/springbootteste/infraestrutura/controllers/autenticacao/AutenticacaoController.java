@@ -20,11 +20,6 @@ import com.example.springbootteste.models.usuario.TokenDTO;
 @RequestMapping("/auth")
 public class AutenticacaoController {
 	
-	/*
-	 * INSERT INTO tb_usuario (id_usuario,email,nome,senha) VALUES
-	 * (1,'gustavo@teste.com.br','Gustavo','$2a$10$09gPRG9pZXeHAnSpRk9NPuofBTkJqzibfdL4DmNEmRklq7468TS7.');
-	 */
-	
 	@Autowired
 	AuthenticationManager authenticationManager; 
 	
